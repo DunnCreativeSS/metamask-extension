@@ -64,7 +64,9 @@ class ImportSeedPhraseScreen extends Component {
      
   }
   validateSeedWordsBoolean = (seedPhrase, split) => {
-
+    if (seedPhrase.split(' ').length <= 11){
+      return true;
+    }
     let words = {}
     let test = split
     for (let word in test){
