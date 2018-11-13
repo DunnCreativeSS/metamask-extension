@@ -31,7 +31,7 @@ class ImportSeedPhraseScreen extends Component {
     passwordError: null,
     confirmPasswordError: null,
   }
-  validateSeedWords =  (seedPhrase) => {
+  validateSeedWords =  (seedPhrase, split) => {
 
     let words = {}
     let test = split
@@ -63,7 +63,7 @@ class ImportSeedPhraseScreen extends Component {
  
      
   }
-  validateSeedWordsBoolean = (seedPhrase) => {
+  validateSeedWordsBoolean = (seedPhrase, split) => {
 
     let words = {}
     let test = split
@@ -110,8 +110,8 @@ class ImportSeedPhraseScreen extends Component {
 		let split = this.parseSeedPhrase(seedPhrase).split(' ');
       if (split.length !== 12) {
         seedPhraseError = this.context.t('seedPhraseReq')
-      } else if (!this.validateSeedWordsBoolean(seedPhrase)){
-            seedPhraseError = this.context.t('invalidSeedWords') + this.validateSeedWords(seedPhrase);
+      } else if (!this.validateSeedWordsBoolean(seedPhrase, split)){
+        seedPhraseError = this.context.t('invalidSeedWords') + this.validateSeedWords(seedPhrase, split);
 
       } else if (!validateMnemonic(seedPhrase)) {
 
