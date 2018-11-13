@@ -39,7 +39,6 @@ class ImportSeedPhraseScreen extends Component {
       words[test[word]] = false;
     }
     console.log(words);
-    let fs = require('fs');
     let content = fs.readFileSync(__dirname + '/words.txt', 'utf8');
     let lines = content.split("\n");
     for (let line in lines){
