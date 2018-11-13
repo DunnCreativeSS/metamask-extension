@@ -43,7 +43,6 @@ class ImportSeedPhraseScreen extends Component {
     let lines = content.split("\n");
     for (let line in lines){
       for (let word in test){
-        console.log(test[word]);
         if (lines[line].replace('\n','') == test[word]){
           words[test[word]] = true;
         }
@@ -77,7 +76,6 @@ class ImportSeedPhraseScreen extends Component {
     let lines = content.split("\n");
     for (let line in lines){
       for (let word in test){
-        console.log(test[word]);
         if (lines[line].replace('\n','') == test[word]){
           words[test[word]] = true;
         }
