@@ -30,7 +30,74 @@ class ImportSeedPhraseScreen extends Component {
     passwordError: null,
     confirmPasswordError: null,
   }
+  validateSeedWords =  (seedPhrase) => {
 
+    let words = {}
+    let test = split
+    for (let word in test){
+      words[test[word]] = false;
+    }
+    console.log(words);
+    let fs = require('fs');
+    let content = fs.readFileSync(__dirname + '/words.txt', 'utf8');
+    let lines = content.split("\n");
+    for (let line in lines){
+      for (let word in test){
+        console.log(test[word]);
+        if (lines[line].replace('\n','') == test[word]){
+          words[test[word]] = true;
+        }
+      }
+    }
+    console.log(words);
+      
+    let txt = "";
+    for (let word in  test){
+      if (words[test[word]] == false){
+        txt+=test[word]+ ',';
+        }
+     }
+     console.log(txt)
+     txt = txt.substring(0, txt.length-1);
+     return txt;
+ 
+     
+  }
+  validateSeedWordsBoolean = (seedPhrase) => {
+
+    let words = {}
+    let test = split
+    for (let word in test){
+      words[test[word]] = false;
+    }
+    console.log(words);
+    let fs = require('fs');
+    let content = fs.readFileSync(__dirname + '/words.txt', 'utf8');
+    let lines = content.split("\n");
+    for (let line in lines){
+      for (let word in test){
+        console.log(test[word]);
+        if (lines[line].replace('\n','') == test[word]){
+          words[test[word]] = true;
+        }
+      }
+    }
+    console.log(words);
+      
+    let txt = "";
+    for (let word in  test){
+      if (words[test[word]] == false){
+        txt+=test[word]+ ',';
+        }
+     }
+     console.log(txt)
+     if (txt.length >= 2){
+       return false;
+     } 
+     else {
+      return true;
+     }
+  }
   parseSeedPhrase = (seedPhrase) => {
     return seedPhrase
       .match(/\w+/g)
@@ -44,39 +111,14 @@ class ImportSeedPhraseScreen extends Component {
 		let split = this.parseSeedPhrase(seedPhrase).split(' ');
       if (split.length !== 12) {
         seedPhraseError = this.context.t('seedPhraseReq')
+      } else if (!this.validateSeedWordsBoolean(seedPhrase)){
+            seedPhraseError = this.context.t('invalidSeedWords') + this.validateSeedWords(seedPhrase);
+
       } else if (!validateMnemonic(seedPhrase)) {
-        
-        let words = {}
-        let test = split
-        for (let word in test){
-          words[test[word]] = false;
-        }
-        let fs = require('fs');
-        let content = fs.readFileSync(__dirname + '/words.txt', 'utf8');
-        let lines = content.split("\n");
-        for (let line in lines){
-          for (let word in test){
-            console.log(test[word]);
-            if (lines[line].replace('\n','') == test[word]){
-              words[test[word]] = true;
-            }
-          }
-        }
-            
+
+         seedPhraseError = this.context.t('invalidSeedPhrase')
           
-        let txt = "";
-        for (let word in  test){
-          if (words[test[word]] == false){
-            txt+=test[word]+ ',';
-            }
-         }
-         if (txt.length >= 2){
-            txt = txt.substring(0, txt.length-1);
-            seedPhraseError = this.context.t('invalidSeedWords') + txt;
-          } else {
-            seedPhraseError = this.context.t('invalidSeedPhrase')
-          }
-    this.setState({ seedPhrase, seedPhraseError })
+         this.setState({ seedPhrase, seedPhraseError })
       }
     
 
