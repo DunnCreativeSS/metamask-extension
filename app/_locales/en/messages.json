@@ -603,6 +603,9 @@
   "invalidRPC": {
     "message": "Invalid RPC URL"
   },
+  "invalidSeedWords": {
+    "message": "The following provided words are not valid seed words: "
+  },
   "invalidSeedPhrase": {
     "message": "Invalid seed phrase"
   },
